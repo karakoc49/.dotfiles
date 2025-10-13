@@ -1,0 +1,11 @@
+import:
+  #  - "~/.config/alacritty/catppuccin-mocha.yml"
+  #  - "~/.config/alacritty/gruber-darker.yml"
+  #  - "~/.config/alacritty/ayu-dark.yml"
+  - "~/.config/alacritty/rose-pine.yml"
+
+font:
+  normal:
+    family: "Iosevka NF"
+    style : "Regular"
+  size: 18

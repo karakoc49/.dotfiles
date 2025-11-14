@@ -76,6 +76,17 @@ require("lazy").setup({
 
     -- Web devicons
     { "nvim-tree/nvim-web-devicons" },
+
+    -- File Tree
+    { "nvim-tree/nvim-tree.lua",
+      version = "*",
+      lazy = false,
+      dependencies = {
+        "nvim-tree/nvim-web-devicons",
+      },
+      config = function()
+        require("nvim-tree").setup {}
+      end, },
   },
 
   install = { colorscheme = { "habamax" } },

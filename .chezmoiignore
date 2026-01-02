@@ -1,0 +1,6 @@
+.git/
+.gitignore
+ansible/
+install.sh
+README.md
+*.txt

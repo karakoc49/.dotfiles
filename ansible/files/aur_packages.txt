@@ -1,0 +1,10 @@
+visual-studio-code-bin
+github-desktop-bin
+google-chrome
+spotify
+brave-bin
+polybar
+envycontrol
+librepods
+betterlockscreen
+nitrogen

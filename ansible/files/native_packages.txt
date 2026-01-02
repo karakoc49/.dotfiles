@@ -1,0 +1,121 @@
+# --- XFCE4 Desktop (Yedek & Araçlar) ---
+xfce4-session
+xfce4-settings
+xfce4-panel
+xfce4-power-manager
+xfce4-terminal
+xfce4-appfinder
+xfce4-notifyd
+xfce4-screenshooter
+xfce4-taskmanager
+xfwm4
+xfdesktop
+xfconf
+garcon
+exo
+tumbler
+thunar
+thunar-archive-plugin
+thunar-media-tags-plugin
+thunar-volman
+gvfs
+xarchiver
+
+# --- XFCE Plugins ---
+xfce4-whiskermenu-plugin
+xfce4-pulseaudio-plugin
+xfce4-battery-plugin
+xfce4-clipman-plugin
+xfce4-screensaver
+xfce4-weather-plugin
+xfce4-wavelan-plugin
+xfce4-mount-plugin
+xfce4-netload-plugin
+xfce4-cpugraph-plugin
+xfce4-systemload-plugin
+
+# --- Login Manager ---
+lightdm
+lightdm-gtk-greeter
+
+# --- i3 Window Manager ---
+i3-wm
+i3status
+i3blocks
+dmenu
+rofi
+picom
+feh
+arandr
+lxappearance
+dysk
+xclip
+xss-lock
+autorandr
+
+# --- Terminal & Shell ---
+alacritty
+tmux
+zsh
+starship
+eza
+btop
+htop
+neovim
+vim
+wget
+tree-sitter-cli
+ripgrep
+fzf
+zram-generator
+tree
+
+# --- Development ---
+base-devel
+git
+cmake
+go
+nodejs
+npm
+python
+docker
+docker-compose
+
+# --- Audio / Video ---
+pipewire
+pipewire-alsa
+pipewire-pulse
+pipewire-jack
+wireplumber
+pavucontrol
+playerctl
+mpv
+
+# --- Apps / Tools ---
+firefox
+steam
+discord
+zathura
+zathura-pdf-mupdf
+imagemagick
+maim
+smartmontools
+unzip
+ncdu
+
+# --- Fonts ---
+ttf-iosevka-nerd
+noto-fonts
+noto-fonts-cjk
+noto-fonts-emoji
+ttf-jetbrains-mono-nerd
+
+# --- Network / Bluetooth ---
+networkmanager
+network-manager-applet
+bluez
+bluez-utils
+blueman
+
+# --- LaTeX ---
+texlive-meta

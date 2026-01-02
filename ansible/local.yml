@@ -1,0 +1,116 @@
+---
+- name: Arch Linux Ultimate Setup
+  hosts: localhost
+  connection: local
+  become: false
+
+  vars:
+    # Paket listelerini dosyalardan oku
+    native_packages: "{{ lookup('file', 'files/native_packages.txt').splitlines() | reject('match', '^\\s*#') | reject('match', '^\\s*$') | list }}"
+    aur_packages: "{{ lookup('file', 'files/aur_packages.txt').splitlines() | reject('match', '^\\s*#') | reject('match', '^\\s*$') | list }}"
+    user_home: "{{ lookup('env', 'HOME') }}"
+
+  tasks:
+    # ---------------------------------------------------------
+    # 1. PACMAN PAKETLERİ
+    # ---------------------------------------------------------
+    - name: Native paketleri kur (Pacman)
+      become: true
+      community.general.pacman:
+        name: "{{ native_packages }}"
+        state: present
+        update_cache: yes
+      tags: ["install", "core"]
+
+    # ---------------------------------------------------------
+    # 2. AUR SETUP (YAY)
+    # ---------------------------------------------------------
+    - name: Yay kurulu mu kontrol et
+      command: which yay
+      register: yay_check
+      ignore_errors: true
+      changed_when: false
+
+    - name: Yay (AUR Helper) Kurulumu
+      when: yay_check.rc != 0
+      block:
+        - name: Yay reposunu klonla
+          git:
+            repo: https://aur.archlinux.org/yay.git
+            dest: /tmp/yay
+        - name: Yay derle ve kur
+          command: makepkg -si --noconfirm
+          args:
+            chdir: /tmp/yay
+
+    # ---------------------------------------------------------
+    # 3. AUR PAKETLERİ
+    # ---------------------------------------------------------
+    - name: AUR paketlerini kur
+      command: "yay -S --needed --noconfirm {{ aur_packages | join(' ') }}"
+      when: aur_packages | length > 0
+      tags: ["install", "aur"]
+
+    # ---------------------------------------------------------
+    # 4. CHEZMOI SETUP
+    # ---------------------------------------------------------
+    - name: Chezmoi Kurulumu (Eğer yoksa)
+      become: true
+      community.general.pacman:
+        name: chezmoi
+        state: present
+
+    - name: Dotfiles'ı uygula (Chezmoi Apply)
+      command: chezmoi apply --force
+      # Repo zaten ~/.local/share/chezmoi içinde olacak, direkt apply ediyoruz
+      tags: ["config"]
+
+    - name: Config dizinindeki scriptleri bul (.sh)
+      find:
+        paths: "{{ user_home }}/.config"
+        patterns: "*.sh"
+        recurse: yes
+      register: config_scripts
+      tags: ["config"]
+
+    - name: Scriptleri çalıştırılabilir yap (+x)
+      file:
+        path: "{{ item.path }}"
+        mode: "0755"
+      loop: "{{ config_scripts.files }}"
+      loop_control:
+        label: "{{ item.path }}"
+      tags: ["config"]
+
+    # ---------------------------------------------------------
+    # 5. EK AYARLAR (Shell, Docker vb.)
+    # ---------------------------------------------------------
+    - name: Varsayılan Shell'i değiştir
+      become: true
+      user:
+        name: "{{ ansible_facts['user_id'] }}"
+        shell: /usr/bin/zsh
+      when: "'zsh' in native_packages"
+    - name: Nvidia Ekran Kartı Kontrolü
+      shell: lspci | grep -i nvidia
+      register: nvidia_check
+      ignore_errors: true
+      changed_when: false
+
+    - name: Nvidia Sürücülerini Kur (Eğer Nvidia varsa)
+      become: true
+      community.general.pacman:
+        name: 
+          - nvidia-dkms
+          - nvidia-utils
+          - lib32-nvidia-utils
+          - nvidia-settings
+        state: present
+      when: nvidia_check.rc == 0
+
+    - name: LightDM servisini başlat ve enable et
+      become: true
+      systemd:
+        name: lightdm
+        state: started
+        enabled: yes

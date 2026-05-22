@@ -1,9 +1,10 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    dependencies = { "nvim-treesitter/playground" },
+
     config = function()
-        require'nvim-treesitter.configs'.setup {
+        require('nvim-treesitter').setup {
+            prefer_git = true,
             -- A list of parser names, or "all" (the listed parsers MUST always be installed)
             ensure_installed = { "go", "javascript", "python", "c", "lua", "vim", "vimdoc", "query", "markdown", "markdown_inline" },
 

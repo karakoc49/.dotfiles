@@ -1,0 +1,63 @@
+* {
+    background-image: none;
+    font-family: "JetBrains Mono Nerd Font", monospace;
+    font-size: 24px;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+window {
+    background-color: rgba(35, 33, 54, 0.85); 
+}
+
+button {
+    color: #e0def4;
+    background-color: rgba(42, 39, 63, 0.6);
+    border: 2px solid #393552;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    margin: 30px;
+    padding: 20px;
+}
+
+button:focus, button:active {
+    outline: none;
+}
+
+/* Ok tuşlarıyla gelindiğinde (:focus) veya fareyle üzerine gelindiğinde (:hover) renk değiştir */
+
+#lock:hover, #lock:focus {
+    background-color: #9ccfd8;
+    color: #232136;
+    border-color: #9ccfd8;
+}
+
+#hibernate:hover, #hibernate:focus {
+    background-color: #f6c177;
+    color: #232136;
+    border-color: #f6c177;
+}
+
+#logout:hover, #logout:focus {
+    background-color: #ea9a97;
+    color: #232136;
+    border-color: #ea9a97;
+}
+
+#shutdown:hover, #shutdown:focus {
+    background-color: #eb6f92;
+    color: #232136;
+    border-color: #eb6f92;
+}
+
+#suspend:hover, #suspend:focus {
+    background-color: #3e8fb0;
+    color: #232136;
+    border-color: #3e8fb0;
+}
+
+#reboot:hover, #reboot:focus {
+    background-color: #c4a7e7;
+    color: #232136;
+    border-color: #c4a7e7;
+}

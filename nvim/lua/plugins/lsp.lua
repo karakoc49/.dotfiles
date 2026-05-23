@@ -11,6 +11,7 @@ return {
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
         "j-hui/fidget.nvim",
+        "onsails/lspkind.nvim",
     },
     config = function()
         require("fidget").setup({})
@@ -19,6 +20,8 @@ return {
             ensure_installed = {
                 "lua_ls",
                 "gopls",
+                "clangd",
+                "pyright",
             },
             handlers = {
                 function(server_name)
@@ -41,7 +44,7 @@ return {
         })
 
         local cmp = require('cmp')
-        local cmp_select = {behavior = cmp.SelectBehavior.Select}
+        local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
         cmp.setup({
             snippet = {
@@ -52,15 +55,51 @@ return {
             mapping = cmp.mapping.preset.insert({
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
                 ['<C-Space>'] = cmp.mapping.complete(),
+
+                -- 1. Modern IDE tarzı ENTER ile Onaylama
+                ['<CR>'] = cmp.mapping.confirm({ select = true }),
+                -- NOT: select = true, listede hiçbir şey vurgulanmamış olsa bile en üstteki ilk öneriyi seçer.
+                -- Eğer sadece senin yön tuşlarıyla veya Tab ile üzerine geldiğin şeyi onaylasın istersen 'false' yapabilirsin.
+
+                -- 2. Akıllı TAB Tuşu Dinamiği
+                ['<Tab>'] = cmp.mapping(function(fallback)
+                    local luasnip = require('luasnip')
+                    if cmp.visible() then
+                        cmp.select_next_item()   -- Menü açıksa bir sonraki öğeye geç
+                    elseif luasnip.expand_or_jumpable() then
+                        luasnip.expand_or_jump() -- Snippet (kod şablonu) içindeyse bir sonraki parametreye zıpla
+                    else
+                        fallback()               -- Normal şartlarda normal TAB boşluğu bırak
+                    end
+                end, { 'i', 's' }),
+
+                -- 3. Akıllı SHIFT+TAB Tuşu Dinamiği
+                ['<S-Tab>'] = cmp.mapping(function(fallback)
+                    local luasnip = require('luasnip')
+                    if cmp.visible() then
+                        cmp.select_prev_item() -- Menü açıksa bir önceki öğeye çık
+                    elseif luasnip.jumpable(-1) then
+                        luasnip.jump(-1)       -- Snippet içindeyse bir önceki parametreye geri zıpla
+                    else
+                        fallback()
+                    end
+                end, { 'i', 's' }),
             }),
             sources = cmp.config.sources({
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
             }, {
                 { name = 'buffer' },
-            })
+            }),
+            -- lsp.lua içindeki cmp.setup alanına eklenebilir:
+            formatting = {
+                format = require('lspkind').cmp_format({
+                    mode = 'symbol_text',
+                    maxwidth = 50,
+                    ellipsis_char = '...',
+                })
+            },
         })
 
         vim.api.nvim_create_autocmd('LspAttach', {

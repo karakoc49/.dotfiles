@@ -1,0 +1,88 @@
+@import "./rose-pine.css";
+
+* {
+    font-family: "Iosevka Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+}
+
+window#waybar {
+    background: transparent; /* Barın arkası şeffaf olsun, modüller havada dursun */
+    color: @text;
+    min-height: 0;
+}
+
+/* Her bir modülün ortak ayarı */
+#workspaces,
+#window,
+#mode,
+#clock,
+#memory,
+#temperature,
+#cpu,
+#battery.bat0,
+#battery.bat1,
+#pulseaudio,
+#bluetooth,
+#network,
+#tray,
+#disk {
+    padding: 0 12px;
+    margin: 0px 4px; /* Modüller arası dış boşluk */
+    background-color: @surface; /* Rose Pine Surface rengi */
+    border: 1px solid @overlay; /* İnce Rose Pine border */
+    border-radius: 4px; /* Keskin köşeleri çok hafif yumuşattım, göze daha hoş gelir */
+    color: @text;
+    transition: all 0.2s ease-in-out; /* Fareyle üzerine gelince yumuşak geçiş */
+}
+
+/* Modüllerin üzerine gelindiğindeki parlama efekti */
+#workspaces:hover,
+#window:hover,
+#clock:hover,
+#memory:hover,
+#cpu:hover,
+#battery.bat0:hover,
+#battery.bat1:hover,
+#pulseaudio:hover,
+#disk:hover {
+    background-color: @highlightLow;
+}
+
+/* Workspaces (Çalışma Alanları) Özel Ayarları */
+#workspaces button {
+    padding: 0 5px;
+    color: @subtle;
+    transition: all 0.2s ease-in-out;
+}
+
+#workspaces button:hover {
+    color: @text;
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background: transparent;
+}
+
+#workspaces button.active {
+    color: @rose;
+    border-bottom: 2px solid @rose;
+}
+
+/* Modüllere özel ikon/yazı renk dokunuşları */
+#memory { color: @foam; }
+#temperature { color: @rose; }
+#cpu { color: @gold; }
+#battery.bat0, #battery.bat1 { color: @pine; }
+#clock { color: @iris; font-weight: bold; }
+#disk { color: @iris; }
+#pulseaudio { color: @love; }
+
+window#waybar.empty #window {
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    background: none;
+    border: none;
+}
+

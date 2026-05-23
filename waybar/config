@@ -1,0 +1,82 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 34,
+    "margin-top": 5,
+    "margin-left": 10,
+    "margin-right": 10,
+    "spacing": 5,
+
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["cpu", "memory", "disk", "pulseaudio", "battery#bat0", "battery#bat1", "tray"],
+
+    "hyprland/workspaces": {
+        "format": "{name}",
+        "on-click": "activate"
+    },
+
+    "clock": {
+        "format": " {:%H:%M  %d.%m.%Y}",
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+
+    "battery#bat0": {
+        "bat": "BAT0",
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} INT {capacity}%",
+        "format-charging": " INT {capacity}%",
+        "format-plugged": " INT {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "battery#bat1": {
+        "bat": "BAT1",
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} EXT {capacity}%",
+        "format-charging": " EXT {capacity}%",
+        "format-plugged": " EXT {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    },
+
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": " {ifname}",
+        "format-disconnected": "⚠ Disconnected",
+        "on-click": "nm-connection-editor"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+    
+    "disk": {
+        "interval": 30,
+        "format": "󰋊 {percentage_used}%",
+        "path": "/"
+    },
+    
+    "cpu": {
+        "format": " {usage}%"
+    },
+
+    "memory": {
+        "format": " {}%"
+    },
+
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10
+    }
+}

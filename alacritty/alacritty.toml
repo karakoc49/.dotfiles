@@ -1,0 +1,10 @@
+
+[font]
+size = 12
+
+[font.normal]
+family = "Iosevka NF"
+style = "Regular"
+
+[general]
+import = ["/home/haluk/.config/alacritty/rose-pine.toml"]

@@ -43,6 +43,28 @@ return {
             }
         })
 
+        -- ==========================================
+        --  YENİ: ANLIK HATA GÖSTERİMİ (DIAGNOSTICS)
+        -- ==========================================
+        vim.diagnostic.config({
+            virtual_text = {
+                prefix = '●',
+                spacing = 4,
+                source = "if_many",
+                -- İŞTE SİHİRLİ DOKUNUŞ: Sağ taraftaki yazıları SADECE 'ERROR' için gösterir.
+                -- Warning (Uyarı), Hint (İpucu) ve Info (Bilgi) seviyeleri sağda metin olarak çıkmaz.
+                severity = vim.diagnostic.severity.ERROR,
+            },
+
+            -- Uyarıları (Warning) sol tarafta sadece ufak bir ikon veya altı çizili olarak bırakıyoruz.
+            -- Böylece ekranın kirlenmez ama nerede <leader>vd yapman gerektiğini bilirsin.
+            signs = true,
+            underline = true,
+
+            update_in_insert = true,
+            severity_sort = true,
+        })
+
         local cmp = require('cmp')
         local cmp_select = { behavior = cmp.SelectBehavior.Select }
 
@@ -56,31 +78,23 @@ return {
                 ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
                 ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
                 ['<C-Space>'] = cmp.mapping.complete(),
-
-                -- 1. Modern IDE tarzı ENTER ile Onaylama
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
-                -- NOT: select = true, listede hiçbir şey vurgulanmamış olsa bile en üstteki ilk öneriyi seçer.
-                -- Eğer sadece senin yön tuşlarıyla veya Tab ile üzerine geldiğin şeyi onaylasın istersen 'false' yapabilirsin.
-
-                -- 2. Akıllı TAB Tuşu Dinamiği
                 ['<Tab>'] = cmp.mapping(function(fallback)
                     local luasnip = require('luasnip')
                     if cmp.visible() then
-                        cmp.select_next_item()   -- Menü açıksa bir sonraki öğeye geç
+                        cmp.select_next_item()
                     elseif luasnip.expand_or_jumpable() then
-                        luasnip.expand_or_jump() -- Snippet (kod şablonu) içindeyse bir sonraki parametreye zıpla
+                        luasnip.expand_or_jump()
                     else
-                        fallback()               -- Normal şartlarda normal TAB boşluğu bırak
+                        fallback()
                     end
                 end, { 'i', 's' }),
-
-                -- 3. Akıllı SHIFT+TAB Tuşu Dinamiği
                 ['<S-Tab>'] = cmp.mapping(function(fallback)
                     local luasnip = require('luasnip')
                     if cmp.visible() then
-                        cmp.select_prev_item() -- Menü açıksa bir önceki öğeye çık
+                        cmp.select_prev_item()
                     elseif luasnip.jumpable(-1) then
-                        luasnip.jump(-1)       -- Snippet içindeyse bir önceki parametreye geri zıpla
+                        luasnip.jump(-1)
                     else
                         fallback()
                     end
@@ -92,7 +106,6 @@ return {
             }, {
                 { name = 'buffer' },
             }),
-            -- lsp.lua içindeki cmp.setup alanına eklenebilir:
             formatting = {
                 format = require('lspkind').cmp_format({
                     mode = 'symbol_text',

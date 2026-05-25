@@ -27,7 +27,8 @@ window#waybar {
 #bluetooth,
 #network,
 #tray,
-#disk {
+#disk,
+#language {
     padding: 0 12px;
     margin: 0px 4px; /* Modüller arası dış boşluk */
     background-color: @surface; /* Rose Pine Surface rengi */
@@ -46,7 +47,8 @@ window#waybar {
 #battery.bat0:hover,
 #battery.bat1:hover,
 #pulseaudio:hover,
-#disk:hover {
+#disk:hover,
+#language:hover {
     background-color: @highlightLow;
 }
 
@@ -77,6 +79,12 @@ window#waybar {
 #clock { color: @iris; font-weight: bold; }
 #disk { color: @iris; }
 #pulseaudio { color: @love; }
+
+#language {
+    min-width: 40px;
+    color: @rose;
+    font-weight: bold;
+}
 
 window#waybar.empty #window {
     padding: 0;

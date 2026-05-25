@@ -9,13 +9,19 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": ["clock"],
-    "modules-right": ["cpu", "memory", "disk", "pulseaudio", "battery#bat0", "battery#bat1", "tray"],
+    "modules-right": ["cpu", "memory", "disk", "pulseaudio", "hyprland/language", "battery#bat0", "battery#bat1", "tray"],
 
     "hyprland/workspaces": {
         "format": "{name}",
         "on-click": "activate"
     },
-
+    
+    "hyprland/language": {
+        "format": "  {}",
+        "format-en": "US",
+        "format-tr": "TR"
+    },
+    
     "clock": {
         "format": " {:%H:%M  %d.%m.%Y}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"

@@ -16,3 +16,7 @@ vim.opt.scrolloff = 8
 vim.opt.colorcolumn = "80"
 
 vim.opt.clipboard = "unnamedplus"
+
+-- Netrw'yi tamamen devre dışı bırak
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1

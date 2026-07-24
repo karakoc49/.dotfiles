@@ -1,0 +1,85 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 32,
+    "spacing": 4,
+
+    // Sol, Orta ve Sağ Modüller
+    "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "tray"],
+
+    // Sway Workspaces Modülü
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "format": "{name}",
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": []
+        }
+    },
+
+    // Aktif Pencere Başlığı
+    "sway/window": {
+        "format": "{title}",
+        "max-length": 40,
+        "separate-outputs": true
+    },
+
+    // Sistem Tepsisi
+    "tray": {
+        "icon-size": 16,
+        "spacing": 10
+    },
+
+    // Saat & Tarih
+    "clock": {
+        "format": " {:%H:%M}",
+        "format-alt": " {:%A, %B %d, %Y}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>"
+    },
+
+    // CPU
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": true
+    },
+
+    // RAM
+    "memory": {
+        "format": " {}%"
+    },
+
+    // Ağ Durumu
+    "network": {
+        "format-wifi": " {essid}",
+        "format-ethernet": "󰈀 Ethernet",
+        "format-disconnected": "⚠ Disconnected",
+        "tooltip-format": "{ifname} via {gwaddr}"
+    },
+
+    // Ses Düzeyi (PipeWire/PulseAudio)
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": " Muted",
+        "format-icons": {
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    // Pil Durumu
+    "battery": {
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "󱐋 {capacity}%",
+        "format-plugged": " {capacity}%",
+        "format-icons": ["", "", "", "", ""]
+    }
+}

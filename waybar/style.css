@@ -1,96 +1,136 @@
-@import "./rose-pine.css";
+@import "rose-pine.css";
 
-* {
-    font-family: "Iosevka Nerd Font", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    border: none;
-    border-radius: 0;
+/* --- Eksik Olan Yanıp Sönme (Blink) Animasyonu --- */
+@keyframes blink {
+    0% {
+        background-color: @love;
+        color: @base;
+    }
+    100% {
+        background-color: @surface;
+        color: @love;
+    }
 }
 
-window#waybar {
-    background: transparent; /* Barın arkası şeffaf olsun, modüller havada dursun */
-    color: @text;
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "Iosevka Nerd Font", "Font Awesome 6 Free", "Font Awesome 6 Brands", sans-serif;
+    font-size: 16px;
     min-height: 0;
 }
 
-/* Her bir modülün ortak ayarı */
-#workspaces,
-#window,
-#mode,
-#clock,
-#memory,
-#temperature,
-#cpu,
-#battery.bat0,
-#battery.bat1,
-#pulseaudio,
-#bluetooth,
-#network,
-#tray,
-#disk,
-#language {
-    padding: 0 12px;
-    margin: 0px 4px; /* Modüller arası dış boşluk */
-    background-color: @surface; /* Rose Pine Surface rengi */
-    border: 1px solid @overlay; /* İnce Rose Pine border */
-    border-radius: 4px; /* Keskin köşeleri çok hafif yumuşattım, göze daha hoş gelir */
+window#waybar {
+    background-color: @base;
     color: @text;
-    transition: all 0.2s ease-in-out; /* Fareyle üzerine gelince yumuşak geçiş */
+    border-bottom: 2px solid @overlay;
 }
 
-/* Modüllerin üzerine gelindiğindeki parlama efekti */
-#workspaces:hover,
-#window:hover,
-#clock:hover,
-#memory:hover,
-#cpu:hover,
-#battery.bat0:hover,
-#battery.bat1:hover,
-#pulseaudio:hover,
-#disk:hover,
-#language:hover {
-    background-color: @highlightLow;
+/* --- Sol Modüller (Workspaces & Window) --- */
+#workspaces {
+    background-color: @surface;
+    margin: 4px 6px;
+    border-radius: 8px;
+    padding: 0 4px;
 }
 
-/* Workspaces (Çalışma Alanları) Özel Ayarları */
 #workspaces button {
-    padding: 0 5px;
+    padding: 0 8px;
     color: @subtle;
-    transition: all 0.2s ease-in-out;
+    border-radius: 6px;
 }
 
 #workspaces button:hover {
-    color: @text;
-    box-shadow: inherit;
-    text-shadow: inherit;
-    background: transparent;
+    background-color: @overlay;
+    color: @rose;
 }
 
-#workspaces button.active {
-    color: @rose;
-    border-bottom: 2px solid @rose;
-}
-
-/* Modüllere özel ikon/yazı renk dokunuşları */
-#memory { color: @foam; }
-#temperature { color: @rose; }
-#cpu { color: @gold; }
-#battery.bat0, #battery.bat1 { color: @pine; }
-#clock { color: @iris; font-weight: bold; }
-#disk { color: @iris; }
-#pulseaudio { color: @love; }
-
-#language {
-    min-width: 40px;
-    color: @rose;
+#workspaces button.focused {
+    background-color: @highlightMed;
+    color: @iris;
     font-weight: bold;
 }
 
-window#waybar.empty #window {
-    padding: 0;
-    margin: 0;
-    min-width: 0;
-    background: none;
-    border: none;
+#workspaces button.urgent {
+    background-color: @love;
+    color: @base;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
 }
 
+#window {
+    background-color: @surface;
+    color: @subtle;
+    padding: 2px 12px;
+    margin: 4px 0;
+    border-radius: 8px;
+}
+
+/* --- Orta Modül (Clock) --- */
+#clock {
+    background-color: @surface;
+    color: @rose;
+    padding: 2px 16px;
+    margin: 4px 0;
+    border-radius: 8px;
+    font-weight: bold;
+    border: 1px solid @highlightMed;
+}
+
+/* --- Sağ Modüller --- */
+#pulseaudio, #network, #cpu, #memory, #battery, #tray {
+    background-color: @surface;
+    padding: 2px 12px;
+    margin: 4px 2px;
+    border-radius: 8px;
+}
+
+#pulseaudio {
+    color: @iris;
+}
+
+#network {
+    color: @foam;
+}
+
+#cpu {
+    color: @gold;
+}
+
+#memory {
+    color: @pine;
+}
+
+#battery {
+    color: @rose;
+}
+
+#battery.charging, #battery.plugged {
+    color: @foam;
+}
+
+#battery.critical:not(.charging) {
+    background-color: @love;
+    color: @base;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#tray {
+    margin-right: 6px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: @love;
+}

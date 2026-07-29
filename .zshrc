@@ -65,12 +65,12 @@ eval "$(zoxide init zsh)"
 eval "$(starship init zsh)"
 
 # ==========================================
-# ZSH EKLENTİLERİ (ARCH LINUX YOLLARI)
+# ZSH EKLENTİLERİ (FEDORA LINUX YOLLARI)
 # ==========================================
 # 1. Otomatik Tamamlama (Sen yazarken silik renkte geçmişi önerir, sağ ok ile kabul edersin)
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # 2. Sözdizimi Renklendirme (Komut doğruysa yeşil, yanlışsa kırmızı yanar)
 # ÖNEMLİ: syntax-highlighting Zsh'ta her zaman en sona yazılmalıdır!
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 

@@ -1,0 +1,96 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# Tek satırlık, temiz ve kompakt formatımız
+format = "$username$hostname$directory$git_branch$git_status$golang$nodejs$python$time$character"
+
+palette = "rose-pine"
+
+[palettes.rose-pine]
+overlay = '#26233a'
+love = '#eb6f92'
+gold = '#f6c177'
+rose = '#ebbcba'
+pine = '#31748f'
+foam = '#9ccfd8'
+iris = '#c4a7e7'
+text = '#e0def4'
+muted = '#6e6a86'
+
+# --- Kapsül 1: Kullanıcı ve Makine Adı (haluk@fedora) ---
+[username]
+show_always = true
+style_user = "bg:overlay fg:iris"
+style_root = "bg:overlay fg:love"
+format = "[](fg:overlay)[󰧱 $user]($style)"
+
+[hostname]
+ssh_only = false
+style = "bg:overlay fg:text"
+format = "[@$hostname]($style)[](fg:overlay) "
+
+# --- Kapsül 2: Dizin ---
+[directory]
+format = "[](fg:overlay)[ $path ]($style)[](fg:overlay) "
+style = "bg:overlay fg:pine"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+Documents = "󰈙"
+Downloads = " "
+Music = " "
+Pictures = " "
+
+# --- Kapsül 3: Git Bilgileri ---
+[git_branch]
+format = "[](fg:overlay)[ $symbol $branch ]($style)[](fg:overlay) "
+style = "bg:overlay fg:foam"
+symbol = ""
+
+[git_status]
+disabled = false
+style = "bg:overlay fg:love"
+format = '[](fg:overlay)([$all_status$ahead_behind]($style))[](fg:overlay) '
+up_to_date = '[ ✓ ](bg:overlay fg:iris)'
+untracked = '[?\($count\)](bg:overlay fg:gold)'
+stashed = '[\$](bg:overlay fg:iris)'
+modified = '[!\($count\)](bg:overlay fg:gold)'
+renamed = '[»\($count\)](bg:overlay fg:iris)'
+deleted = '[✘\($count\)](style)'
+staged = '[++\($count\)](bg:overlay fg:gold)'
+ahead = '[⇡\(${count}\)](bg:overlay fg:foam)'
+diverged = '⇕[\[](bg:overlay fg:iris)[⇡\(${ahead_count}\)](bg:overlay fg:foam)[⇣\(${behind_count}\)](bg:overlay fg:rose)[\]](bg:overlay fg:iris)'
+behind = '[⇣\(${count}\)](bg:overlay fg:rose)'
+
+# --- Kapsül 4: Proje / Dil Ortamları ---
+[golang]
+style = "bg:overlay fg:gold"
+format = "[](fg:overlay)[ $symbol$version ]($style)[](fg:overlay) "
+disabled = false
+symbol = " "
+
+[python]
+style = "bg:overlay fg:foam"
+format = "[](fg:overlay)[ $symbol$version ]($style)[](fg:overlay) "
+disabled = false
+symbol = ' '
+
+[nodejs]
+style = "bg:overlay fg:rose"
+format = "[](fg:overlay)[ $symbol$version ]($style)[](fg:overlay) "
+disabled = false
+symbol = "󰎙 "
+
+# --- Kapsül 5: Zaman ---
+[time]
+disabled = false
+format = "[](fg:overlay)[ 󰴈 $time ]($style)[](fg:overlay) "
+style = "bg:overlay fg:muted"
+time_format = "%H:%M"
+use_12hr = false
+
+# --- Komut Satırı İmleci ---
+[character]
+success_symbol = "[❯](fg:iris)"
+error_symbol = "[❯](fg:love)"
+vimcmd_symbol = "[❮](fg:pine)"

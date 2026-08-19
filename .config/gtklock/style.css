@@ -1,0 +1,25 @@
+window {
+   background-image: url('/home/haluk/.dotfiles/wallpapers/moon.jpg');
+   background-size: cover;
+   background-position: center;
+}
+
+#clock-label {
+   font-size: 64px;
+   font-weight: bold;
+   color: #ffffff;
+   margin-bottom: 10px;
+}
+
+#date-label {
+   font-size: 20px;
+   color: #e0e0e0;
+}
+
+#input-field {
+   border-radius: 12px;
+   background-color: rgba(30, 30, 46, 0.8);
+   border: 1px solid rgba(255, 255, 255, 0.2);
+   color: #ffffff;
+   padding: 10px;
+}

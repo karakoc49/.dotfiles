@@ -47,9 +47,9 @@ setopt sharehistory # Farklı terminal pencereleri arasında geçmişi anında p
 # KISAYOLLAR (ALIASES)
 # ==========================================
 # ls yerine çok daha hızlı ve ikonlu eza
-alias ls='eza -al --color=always --group-directories-first --icons'
-alias ll='eza -l --color=always --icons'
-alias tree='eza --tree --icons'
+alias ls='eza -al --color=always --group-directories-first --icons=always'
+alias ll='eza -l --color=always --icons=always'
+alias tree='eza --tree --icons=always'
 
 alias cat='bat --style="plain"'
 alias vim='nvim'
@@ -73,4 +73,7 @@ source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # 2. Sözdizimi Renklendirme (Komut doğruysa yeşil, yanlışsa kırmızı yanar)
 # ÖNEMLİ: syntax-highlighting Zsh'ta her zaman en sona yazılmalıdır!
 source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Initialize Zsh command completion
+autoload -Uz compinit && compinit
 

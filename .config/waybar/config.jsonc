@@ -6,13 +6,13 @@
 
     // Sol, Orta ve Sağ Modüller
     "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
-    "modules-center": ["clock"],
-    "modules-right": ["pulseaudio", "network", "cpu", "memory", "battery", "tray"],
+    "modules-center": ["clock", "custom/claude"],
+    "modules-right": ["bluetooth", "pulseaudio", "network", "cpu", "memory", "battery", "tray"],
 
     // Sway Workspaces Modülü
     "sway/workspaces": {
         "disable-scroll": true,
-        "all-outputs": true,
+        "all-outputs": false,
         "format": "{name}",
         "persistent-workspaces": {
             "1": [],
@@ -81,5 +81,23 @@
         "format-charging": "󱐋 {capacity}%",
         "format-plugged": " {capacity}%",
         "format-icons": ["", "", "", "", ""]
+    },
+
+    "custom/claude": {
+        "format": "{}",
+        "return-type": "json",
+        "interval": 5,
+        "exec": "~/.local/bin/waybar-claude.py",
+        "on-click": "alacritty -e claude"
+    },
+
+    "bluetooth": {
+        "format": "",
+        "format-connected": "󰂯 {device_alias} {device_battery_percentage}%",
+        "format-connected-battery": "󰂯 {device_alias} {device_battery_percentage}%",
+        "tooltip-format": "{controller_alias}\n{num_connections} cihaz bağlı",
+        "tooltip-format-connected": "{controller_alias}\n{num_connections} cihaz bağlı\n\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}\t{device_address} {device_battery_percentage}%",
+        "on-click": "alacritty -e bluetoothctl"
     }
 }

@@ -134,3 +134,39 @@ window#waybar {
     -gtk-icon-effect: highlight;
     background-color: @love;
 }
+
+/* --- Claude Code Modülü (Rosé Pine) --- */
+#custom-claude {
+    background-color: #26233a; /* $overlay */
+    color: #c4a7e7;            /* $iris */
+    padding: 0 12px;
+    margin: 4px 4px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+#custom-claude.idle {
+    color: #6e6a86;            /* $muted */
+}
+
+#custom-claude.warning {
+    color: #f6c177;            /* $gold */
+}
+
+#custom-claude.critical {
+    color: #eb6f92;            /* $love */
+}
+
+/* --- Bluetooth Modülü --- */
+#bluetooth {
+    color: #6e6a86; /* $muted - Bağlı değilken soluk renk */
+    padding: 0 10px;
+    margin: 4px 4px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+#bluetooth.connected {
+    background-color: #26233a; /* $overlay */
+    color: #9ccfd8;            /* $foam - Bağlıyken dikkat çekici mavi/yeşil */
+}

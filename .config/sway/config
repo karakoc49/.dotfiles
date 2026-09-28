@@ -76,6 +76,10 @@ exec dbus-update-activation-environment --systemd SSH_AUTH_SOCK GNOME_KEYRING_CO
 exec_always ~/.local/bin/autotiling
 exec mako
 exec solaar --window=hide
+exec tailscale down
+exec tailscale systray
+exec_always wl-paste --type text --watch cliphist store
+exec_always wl-paste --type image --watch cliphist store
 
 # --- GTK & Dark Theme Yapılandırması ---
 exec_always {
@@ -155,16 +159,16 @@ set $ws10 "10"
 # Workspace 1 -> Laptop Ekranı (eDP-1)
 workspace $ws1 output eDP-1
 
-# Workspace 2 - 10 -> Harici Monitörler (Öncelik: Ofis DP-3, Sonra Ev HDMI-A-1)
-workspace $ws2 output DP-3 HDMI-A-1
-workspace $ws3 output DP-3 HDMI-A-1
-workspace $ws4 output DP-3 HDMI-A-1
-workspace $ws5 output DP-3 HDMI-A-1
-workspace $ws6 output DP-3 HDMI-A-1
-workspace $ws7 output DP-3 HDMI-A-1
-workspace $ws8 output DP-3 HDMI-A-1
-workspace $ws9 output DP-3 HDMI-A-1
-workspace $ws10 output DP-3 HDMI-A-1
+# Workspace 2 - 10 -> Harici Monitörler (Öncelik: Ofis DP-3, Ev HDMI-A-1, Mevcut DP-1)
+workspace $ws2 output DP-3 HDMI-A-1 DP-1
+workspace $ws3 output DP-3 HDMI-A-1 DP-1
+workspace $ws4 output DP-3 HDMI-A-1 DP-1
+workspace $ws5 output DP-3 HDMI-A-1 DP-1
+workspace $ws6 output DP-3 HDMI-A-1 DP-1
+workspace $ws7 output DP-3 HDMI-A-1 DP-1
+workspace $ws8 output DP-3 HDMI-A-1 DP-1
+workspace $ws9 output DP-3 HDMI-A-1 DP-1
+workspace $ws10 output DP-3 HDMI-A-1 DP-1
 
 bindsym $mod+1 workspace number $ws1
 bindsym $mod+2 workspace number $ws2
@@ -191,6 +195,9 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # Reload & Exit
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec ~/.config/rofi/powermenu.sh
+
+# Mod + Shift + Return ile doğrudan Rofi SSH menüsünü aç
+bindsym $mod+Shift+Return exec ~/.local/bin/rofi-ssh.sh
 
 # Ekranı Kilitleme Kısayolu (Mod + Esc)
 bindsym $mod+Escape exec PAM_SERVICE=passwd gtklock -d

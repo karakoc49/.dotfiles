@@ -1,0 +1,39 @@
+# ESP-IDF projelerinin kokune `.clangd` adiyla kopyalayin.
+# Amac: esp-clangd'nin, GCC'ye ozgu / xtensa'ya ozgu bayraklara takilmamasi.
+CompileFlags:
+  CompilationDatabase: build          # idf.py build ciktisi
+  Remove:
+    - -fno-tree-switch-conversion     # GCC'ye ozgu, clang tanimaz
+    - -fstrict-volatile-bitfields
+    - -mtext-section-literals
+    - -mlongcalls
+    - -fno-shrink-wrap
+    - -mdisable-hardware-atomics
+    - -fzero-init-padding-bits=*
+    - -fno-malloc-dce
+    - -fmacro-prefix-map=*
+    - -fno-jump-tables
+    - -fno-tree-loop-distribute-patterns
+    - --param=*
+  Add:
+    - -Wno-unknown-attributes
+    - -Wno-ignored-attributes
+    # esp-clangd kendi builtin header dizinini (lib/clang/N/include) getirmiyor.
+    # Asagidaki yollar :IdfClangdInit tarafindan bu makineye gore dolduruldu.
+#__GCC_BUILTIN_INCLUDES__
+
+Diagnostics:
+  UnusedIncludes: None                # IDF baslik zincirleri yuzunden cok fazla yanlis pozitif
+  ClangTidy:
+    Add:
+      - bugprone-*
+      - readability-non-const-parameter
+      - performance-*
+    Remove:
+      - bugprone-easily-swappable-parameters
+      - readability-magic-numbers
+
+InlayHints:
+  Enabled: true
+  ParameterNames: true
+  DeducedTypes: false

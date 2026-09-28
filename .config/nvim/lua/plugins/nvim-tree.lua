@@ -9,8 +9,11 @@ return {
         local nvimtree = require("nvim-tree")
 
         nvimtree.setup({
+            -- netrw zaten options.lua'da kapatildi; oil.nvim varsayilan gezgin.
+            -- nvim-tree yalnizca <C-n> ile acilan yan agac olarak kalir.
             hijack_netrw = false,
             disable_netrw = false,
+            hijack_directories = { enable = false }, -- dizin acmayi oil'e birak
 
             sync_root_with_cwd = true,
             respect_buf_cwd = true,

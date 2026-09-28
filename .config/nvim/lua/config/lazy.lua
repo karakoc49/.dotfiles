@@ -4,9 +4,9 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
   if vim.v.shell_error ~= 0 then
     vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out,                            "WarningMsg" },
-      { "\nPress any key to exit..." },
+      { "lazy.nvim klonlanamadi:\n", "ErrorMsg" },
+      { out,                         "WarningMsg" },
+      { "\nCikmak icin bir tusa bas..." },
     }, true, {})
     vim.fn.getchar()
     os.exit(1)
@@ -15,16 +15,18 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  spec = {
-    -- import your plugins
-    { import = "plugins" },
-  },
-  -- Configure any other settings here. See the documentation for more details.
-  -- colorscheme that will be used when installing plugins.
-  install = { colorscheme = { "habamax" } },
-  -- automatically check for plugin updates
-  checker = {
-    enabled = true,
-    notify = false,
+  spec = { { import = "plugins" } },
+  install = { colorscheme = { "rose-pine", "habamax" } },
+  -- Guncelleme kontrolu her aciliste ag istegi yapiyordu; haftalik yeter.
+  checker = { enabled = true, notify = false, frequency = 604800 },
+  change_detection = { enabled = true, notify = false },
+  performance = {
+    rtp = {
+      -- Kullanilmayan yerlesik eklentileri kapat (acilis suresi)
+      disabled_plugins = {
+        -- matchit/matchparen KAPATILMADI: C'de % ile ayrac ve #if/#endif atlamasi lazim.
+        "gzip", "tarPlugin", "zipPlugin", "tohtml", "tutor", "rplugin", "netrwPlugin",
+      },
+    },
   },
 })

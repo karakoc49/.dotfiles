@@ -1,22 +1,59 @@
-vim.opt.nu = true
-vim.opt.relativenumber = true
+local opt = vim.opt
 
-vim.opt.tabstop = 4
-vim.opt.softtabstop = 4
-vim.opt.shiftwidth = 4
-vim.opt.expandtab = true
---vim.opt.smartindent = true
+-- Satır numaraları
+opt.number = true
+opt.relativenumber = true
+opt.signcolumn = "yes" -- diagnostic/gitsigns ikonları gelince metin kaymasın
 
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
+-- Girinti (vim-sleuth dosyaya göre override eder)
+opt.tabstop = 4
+opt.softtabstop = 4
+opt.shiftwidth = 4
+opt.expandtab = true
+opt.smartindent = true
+opt.breakindent = true
 
-vim.opt.termguicolors = true
+-- Arama
+opt.hlsearch = false
+opt.incsearch = true
+opt.ignorecase = true
+opt.smartcase = true -- büyük harf yazınca case-sensitive'e döner
 
-vim.opt.scrolloff = 8
-vim.opt.colorcolumn = "80"
+-- Görünüm
+opt.termguicolors = true
+opt.scrolloff = 8
+opt.sidescrolloff = 8
+opt.colorcolumn = "120" -- ESP-IDF kod stili 120 sütun
+opt.cursorline = true
+opt.wrap = false
+opt.laststatus = 3 -- tek global statusline (split'lerde daha temiz)
+opt.splitright = true
+opt.splitbelow = true
+opt.pumheight = 12
+opt.list = true
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+opt.fillchars = { eob = " " }
+opt.winborder = "rounded" -- nvim 0.11+: tüm float'lara çerçeve
 
-vim.opt.clipboard = "unnamedplus"
+-- Kalıcı undo (undotree eklentisi ancak bununla anlamlı olur)
+opt.undofile = true
+opt.undodir = vim.fn.stdpath("state") .. "/undo"
+opt.swapfile = false
+opt.backup = false
 
--- Netrw'yi tamamen devre dışı bırak
+-- Davranış
+opt.clipboard = "unnamedplus"
+opt.mouse = "a"
+opt.updatetime = 250 -- CursorHold / gitsigns / LSP daha hızlı tepki versin
+opt.timeoutlen = 400 -- which-key popup'ı çabuk açılsın
+opt.confirm = true   -- kaydedilmemiş buffer'da :q sorsun, hata vermesin
+opt.completeopt = { "menu", "menuone", "noselect" }
+opt.grepprg = "rg --vimgrep --smart-case"
+opt.grepformat = "%f:%l:%c:%m"
+
+-- ESP-IDF build klasörleri dosya aramalarını kirletmesin
+opt.wildignore:append({ "*/build/*", "*/managed_components/*", "*.o", "*.elf", "*.bin", "*.map" })
+
+-- Netrw'yi tamamen devre dışı bırak (oil.nvim kullanılıyor)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1

@@ -117,17 +117,19 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # Taşıma (Vim + Yön Tuşları)
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+# Pencereleri Kendi Aralarında Yer Değiştirme (Swap)
+bindsym $mod+shift+h     mark swap, focus left,  swap container with mark swap
+bindsym $mod+shift+j     mark swap, focus down,  swap container with mark swap
+bindsym $mod+shift+k     mark swap, focus up,    swap container with mark swap
+bindsym $mod+shift+l     mark swap, focus right, swap container with mark swap
 
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+bindsym $mod+shift+left  mark swap, focus left,  swap container with mark swap
+bindsym $mod+shift+down  mark swap, focus down,  swap container with mark swap
+bindsym $mod+shift+up    mark swap, focus up,    swap container with mark swap
+bindsym $mod+shift+right mark swap, focus right, swap container with mark swap
 
 # Layout
+
 bindsym $mod+b split h
 bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
